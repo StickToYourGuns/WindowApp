@@ -1,0 +1,89 @@
+body {
+    height: 100vh;
+    background-color: #EEEEEE;
+}
+
+p {
+    color: #222831;
+}
+
+.workspace {
+    height: inherit;
+}
+
+.workspace__area {
+    height: 33%;
+    display: flex;
+}
+
+.window {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 200px;
+    background-color: white;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.control__panel {
+    display: flex;
+    height: 10%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.title {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.controls {
+    display: flex;
+    width: 50px;
+    height: 10px;
+    justify-content: space-around;
+}
+
+.window__hide {
+    background-color: #62c454;
+    width: 10px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.window__resize {
+    background-color: #f4be4e;
+    width: 10px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.window__close {
+    background-color: #ec695e;
+    width: 10px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+.legend {
+    display: flex;
+    height: 10%;
+    width: 100%;
+    background-color: #00ADB5;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;;
+}
+
+.legend__item {
+    font-weight: bold;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+    padding: 3px;
+}
