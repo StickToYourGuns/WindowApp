@@ -1,19 +1,29 @@
+:root {
+    --color1: #DDE6ED;
+    --color2: #9DB2BF;
+    --color3: #526D82;
+    --color4: #27374D;
+  }
+
 body {
     height: 100vh;
-    background-color: #EEEEEE;
-}
-
-p {
-    color: #222831;
+    background-color: var(--color3);
 }
 
 .workspace {
     height: inherit;
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    gap: 5px;
 }
 
 .workspace__area {
-    height: 33%;
+    gap: 5px;
+    height: 32%;
     display: flex;
+    /* padding-top: 5px; */
 }
 
 .window {
@@ -21,12 +31,16 @@ p {
     flex-direction: column;
     height: 100%;
     min-width: 200px;
-    background-color: white;
-    border-radius: 20px;
+    background-color: var(--color1);
+    border-radius: 10px;
     overflow: hidden;
+    flex-grow: 1;
+    flex-flow: column nowrap;
+    box-sizing: border-box; 
+    /* margin: 0 5px; */
 }
 
-.control__panel {
+.window__controlPanel {
     display: flex;
     height: 10%;
     justify-content: space-between;
@@ -34,7 +48,7 @@ p {
     padding: 0 10px;
 }
 
-.title {
+.window__title {
     text-transform: uppercase;
     font-weight: bold;
 }
@@ -71,11 +85,11 @@ p {
 }
 
 
-.legend {
+.window__legend {
     display: flex;
     height: 10%;
     width: 100%;
-    background-color: #00ADB5;
+    background-color: var(--color2);
     justify-content: space-between;
     align-items: center;
     padding: 0 10px;;
@@ -83,7 +97,23 @@ p {
 
 .legend__item {
     font-weight: bold;
-    background-color: #EEEEEE;
-    border-radius: 5px;
-    padding: 3px;
+}
+
+.hideBar {
+    display: flex;
+    align-items: center;
+    height: 4%;
+    background-color: var(--color1);
+    border-radius: 10px;
+    padding: 2px;
+}
+
+.hidden {
+    height: 100%;
+    width: 40px;
+    min-width: 30px;
+    overflow: hidden;
+    background-color: red;
+    flex-grow: 0;
+    /* border-radius: 10px; */
 }
