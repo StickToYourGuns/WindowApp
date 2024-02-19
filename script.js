@@ -1,3 +1,10 @@
+let menuStart = document.querySelector('.hideBar__start');
+let menuUl = document.querySelector('.hideBar__ul');
+let menuLi = document.querySelector('.hideBar__li');
+let menuItems = document.querySelectorAll('.menuItem');
+let addDefault = document.querySelector('.addDefault');
+
+
 let elements = document.querySelectorAll('.workspace__area');
 for (let i = 0; i < elements.length; i++) {
     let sortable = Sortable.create(elements[i], {
@@ -6,7 +13,6 @@ for (let i = 0; i < elements.length; i++) {
         animation: 150
     });
 }
-
 
 
 class Window {
@@ -75,7 +81,7 @@ class Window {
             })
         }
     }
-    
+
     hide() {
         let parent = this.window.parentNode;
         let window = this.window;
@@ -97,23 +103,75 @@ class Window {
     }
 }
 
-let defaultWindow = new Window(0);
-let defaultWindow2 = new Window(1);
-let defaultWindow3 = new Window(2);
-// let defaultWindow4 = new Window(1);
+class WindowItems extends Window {
+    constructor (areaNumber) {
+        super(areaNumber);
+        this.name = "Список приборов";
+        this.title.innerHTML = this.name;
+        this.eventsObject = new WindowEvents(areaNumber);
 
-// menuStart.addEventListener("click", function() {
-    //     menu.classList.add("visible");
-    //     menuItems.forEach(function(item) {
-        //         item.classList.toggle("enable");
-        //     })
-        // })
+        this.col = document.createElement("p");
+        this.col.innerHTML = "Имя прибора";
+        this.col.classList.add("legend__item")
+        this.legend.append(this.col);
+        this.col = document.createElement("p");
+        this.col.innerHTML = "Тип прибора";
+        this.col.classList.add("legend__item")
+        this.legend.append(this.col);
+        this.col = document.createElement("p");
+        this.col.innerHTML = "Местоположение";
+        this.col.classList.add("legend__item")
+        this.legend.append(this.col);
+// переписать в цикл
+
+        this.fill();
+
+    }
+
+    fill() {
+        // requestHandler(this, "appliances.json", this.eventsObject);
+        requestHandler("appliances.json");
         
+        function requestHandler(way) {
+            let requestURL = way;
+            let xhr = new XMLHttpRequest();
+
+            xhr.open("GET", requestURL);
+            xhr.onerror = function(){console.log("oops")};
+            xhr.send()
+        }
+
+
+        // function requestHandler(way) {
+        //     let requestWay = way;
+        //     function useRequest(requestWay){
+        //         return fetch(way)
+        //         .then ((response) => {
+        //             return response.json();
+        //         })
+        //         .then ((answer) => {return answer;})
+        //         .catch(() => console.log("an error"))
+        //     }
+    
+        //     useRequest()
+        // }
+    }
+}
+
+class WindowEvents extends Window {
+    constructor (areaNumber) {
+        super (areaNumber);
+        this.name = "События";
+        this.title.innerHTML = this.name;
+    }
+}
+
+
+let defaultWindow = new Window(0);
+let defaultWindow3 = new Window(2);
+let itemWindow = new WindowItems(1);
+// let eventsWindow = new WindowEvents(2);
         
-let menuStart = document.querySelector('.hideBar__start');
-let menuUl = document.querySelector('.hideBar__ul');
-let menuLi = document.querySelector('.hideBar__li');
-let menuItems = document.querySelectorAll('.menuItem');
 
 menuStart.addEventListener("click", function() {
     menuStart.classList.add("active");
@@ -121,16 +179,14 @@ menuStart.addEventListener("click", function() {
     menuLi.classList.add("active");
 });
 
-menuItems.forEach(function(item){
-    item.addEventListener("mouseover", function(e) {
-        if (e.target != item){
-            console.log("smth");
-        }
-    })
+window.addEventListener("mousemove", function(e) {
+    if ((e.clientX>40) || (e.clientY<(window.innerHeight - 150))) {
+        menuStart.classList.remove("active");
+        menuUl.classList.remove("active");
+        menuLi.classList.remove("active");
+    }
 })
 
-// menuStart.addEventListener("mouseover", function(e) {
-//     if (e.target == menuStart){
-//         console.log("smth");
-//     }
-// });
+addDefault.addEventListener("click", function() {
+    new Window(0);
+})
