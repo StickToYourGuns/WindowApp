@@ -9,6 +9,7 @@
 body {
     height: 100vh;
     background-color: var(--color3);
+    overflow: hidden;
 }
 
 .workspace {
@@ -111,6 +112,12 @@ body {
     font-weight: bold;
 }
 
+.legend__item__event {
+    font-weight: bold;
+    width: 12.5%;
+    text-align: center;
+}
+
 .window__content {
     overflow: hidden auto;
     display: flex;
@@ -126,12 +133,18 @@ body {
     min-height: 30px;
     align-items: center;
     border-bottom: 1px solid var(--color3);
+    justify-content: space-around;
 }
 
-.id {width: 10%; padding-left: 10px;}
-.name {width: 30%;}
+.col__event {
+    width: 12.5%;
+    text-align: center;
+}
+
+.id {display: none;}
+/* .name {width: 30%;}
 .type {width: 30%;}
-.location{width: 30%;}
+.location{width: 30%;} */
 
 .hideBar {
     display: flex;
@@ -172,16 +185,20 @@ body {
 }
 
 .hideBar__ul {
-    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    height: 0px;
     opacity: 0;
     position: absolute;
-    bottom: 0px;
+    bottom: -10px;
     background-color: var(--color4);
     padding: 5px;
     border-radius: 10px 10px 0 0;
 }
 .hideBar__ul.active {
-    height: 100px;
+    height: 160px;
     bottom: 40px;
     opacity: 1;
     transition: .1s;
@@ -190,9 +207,6 @@ body {
 
 .hideBar__li {
     opacity: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 30px;
     width: 30px;
     background-color: var(--color5);
@@ -203,7 +217,7 @@ body {
     animation: menuAppear;
     animation-duration: .5s;
 }
-@keyframes menuAppear {
+/* @keyframes menuAppear {
     0%{
         opacity: 0;
     }
@@ -213,7 +227,7 @@ body {
     100%{
         opacity: 1;
     }
-}
+} */
 
 .addDefault {
     background-image: url(assets/img/box-seam.svg);
@@ -226,6 +240,50 @@ body {
     background-image: url(assets/img/box-seam-fill.svg);
     transition: .5s;
 }
+.addItems{
+    background-image: url(assets/img/items.svg);
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
+    transition: .5s;
+}
+.addItems:hover {
+    background-image: url(assets/img/items-fill.svg);
+    transition: .5s;
+}
+.addSessions{
+    background-image: url(assets/img/session.svg);
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
+    transition: .5s;
+}
+.addSessions:hover {
+    background-image: url(assets/img/session-fill.svg);
+    transition: .5s;
+}
+.addSettings{
+    background-image: url(assets/img/settings.svg);
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
+    transition: .5s;
+}
+.addSettings:hover {
+    background-image: url(assets/img/settings-fill.svg);
+    transition: .5s;
+}
+.addMap{
+    background-image: url(assets/img/map.svg);
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
+    transition: .5s;
+}
+.addMap:hover {
+    background-image: url(assets/img/map-fill.svg);
+    transition: .5s;
+}
 
 .hidden {
     height: 30px;
@@ -233,7 +291,7 @@ body {
     min-width: 30px;
     overflow: hidden;
     background-color: var(--color5);
-    background-image: url(assets/img/box-seam.svg);
+    background-image: url(assets/img/default.svg);
     background-repeat: no-repeat;
     background-size: 20px;
     background-position: center;
@@ -243,7 +301,42 @@ body {
 }
 .hidden:hover {
     transition: .5s;
-    background-image: url(assets/img/box-seam-fill.svg);
+    background-image: url(assets/img/default-fill.svg);
+}
+
+.items.hidden {
+    background-image: url(assets/img/items.svg);
+}
+.items.hidden:hover {
+    background-image: url(assets/img/items-fill.svg);
+}
+
+.events.hidden {
+    background-image: url(assets/img/events.svg);
+}
+.events.hidden:hover {
+    background-image: url(assets/img/events-fill.svg);
+}
+
+.sessions.hidden {
+    background-image: url(assets/img/session.svg);
+}
+.sessions.hidden:hover {
+    background-image: url(assets/img/session-fill.svg);
+}
+
+.settings.hidden {
+    background-image: url(assets/img/settings.svg);
+}
+.settings.hidden:hover {
+    background-image: url(assets/img/settings-fill.svg);
+}
+
+.map.hidden {
+    background-image: url(assets/img/map.svg);
+}
+.map.hidden:hover {
+    background-image: url(assets/img/map-fill.svg);
 }
 
 .hidden .window__controlPanel {
