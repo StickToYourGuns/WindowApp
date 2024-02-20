@@ -334,7 +334,7 @@ class Window {
         this.button.classList.add("window__close");
         handler(this.button, this, "close");
         this.controls.append(this.button);
-        // потом переделаю в цикл
+        // TODO: переписать в цикл
 
         this.legend = document.createElement("div");
         this.legend.classList.add("window__legend");
@@ -400,6 +400,7 @@ class WindowItems extends Window {
         this.title.innerHTML = this.name;
         this.eventsObject = new WindowEvents(areaNumber);
         this.window.classList.add("items");
+        console.log(this.content);
 
         for (let i = 0; i < 4; i++) {
             let col = document.createElement("p");
@@ -437,9 +438,10 @@ class WindowItems extends Window {
 
             pageCreator(object, itemsCount, appliances, eventsObject);
 
-            let rows = document.querySelectorAll(".row");
+            let rows = object.content.querySelectorAll(".row");
 
             for (let i = 0; i < itemsCount; i++) {
+                console.log(rows[i].querySelector('.id'));
                 rows[i].querySelector('.id').innerHTML = appliances.items[i].id;
                 rows[i].querySelector('.name').innerHTML = appliances.items[i].name;
                 rows[i].querySelector('.type').innerHTML = appliances.items[i].type;
@@ -637,11 +639,8 @@ class WindowMap extends Window {
     }
 }
 
-let item2 = new WindowItems(1);
 let item1 = new WindowItems(0);
-// setTimeout(function(){
-// }, 5000);
-// let sessions1 = new WindowSessions(1);
+let sessions1 = new WindowSessions(1);
 let settings1 = new WindowSettings(2);
 let map1 = new WindowMap(2);
 
