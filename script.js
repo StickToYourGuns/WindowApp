@@ -394,22 +394,30 @@ class WindowItems extends Window {
         this.title.innerHTML = this.name;
         this.eventsObject = new WindowEvents(areaNumber);
 
-        this.col = document.createElement("p");
-        this.col.innerHTML = "Имя прибора";
-        this.col.classList.add("legend__item")
-        this.legend.append(this.col);
-        this.col = document.createElement("p");
-        this.col.innerHTML = "Тип прибора";
-        this.col.classList.add("legend__item")
-        this.legend.append(this.col);
-        this.col = document.createElement("p");
-        this.col.innerHTML = "Местоположение";
-        this.col.classList.add("legend__item")
-        this.legend.append(this.col);
-        // переписать в цикл
-
+        for (let i = 0; i < 4; i++) {
+            let col = document.createElement("p");
+            col.classList.add("legend__item")
+            switch (i) {
+                case 0:
+                    col.innerHTML = "id";
+                    col.classList.add("id")
+                    break;
+                case 1:
+                    col.innerHTML = "Имя прибора";
+                    col.classList.add("name")
+                    break;
+                case 2:
+                    col.innerHTML = "Тип прибора";
+                    col.classList.add("type")
+                    break;
+                case 3:
+                    col.innerHTML = "Местоположение";
+                    col.classList.add("location")
+                    break;
+            }
+            this.legend.append(col);
+        }
         this.fill();
-
     }
 
     fill() {
@@ -418,16 +426,55 @@ class WindowItems extends Window {
 
         function requestHandler(object, jsonsmth, eventsObject) {
             let appliances = jsonsmth;
-            let itemsCount = jsonsmth.length;
+            let itemsCount = appliances.items.length;
 
-            // pageCreator(object, itemsCount, appliances, eventsObject);
-            // let rows = document.querySelectorAll(".row");
-            // for (let k = 0; k < itemsValue; k++) {
-            //     rows[k].querySelector('.id').innerHTML = appliances.items[k].id;
-            //     rows[k].querySelector('.name').innerHTML = appliances.items[k].name;
-            //     rows[k].querySelector('.type').innerHTML = appliances.items[k].type;
-            //     rows[k].querySelector('.location').innerHTML = appliances.items[k].location;
-            // }
+            pageCreator(object, itemsCount, appliances, eventsObject);
+
+            let rows = document.querySelectorAll(".row");
+
+            for (let i = 0; i < itemsCount; i++) {
+                rows[i].querySelector('.id').innerHTML = appliances.items[i].id;
+                rows[i].querySelector('.name').innerHTML = appliances.items[i].name;
+                rows[i].querySelector('.type').innerHTML = appliances.items[i].type;
+                rows[i].querySelector('.location').innerHTML = appliances.items[i].location;
+            }
+        }
+
+        function pageCreator(object, itemsCount, appliances, eventsObject) {
+            for (let i = 0; i < itemsCount; i++) {
+                let row = document.createElement("div");
+                row.classList.add("row");
+
+                row.addEventListener("click", function () {
+                    let id = this.querySelector(".id").innerHTML;
+                    for (let k = 0; k < appliances.items.length; k++) {
+                        if (appliances.items[k].id == id) {
+                            eventsObject.fill(appliances, id);
+                        }
+                    }
+                })
+
+                for (let j = 0; j < 4; j++) {
+                    let col = document.createElement("div");
+                    col.classList.add("col");
+                    switch (j) {
+                        case 0:
+                            col.classList.add("id")
+                            break;
+                        case 1:
+                            col.classList.add("name")
+                            break;
+                        case 2:
+                            col.classList.add("type")
+                            break;
+                        case 3:
+                            col.classList.add("location")
+                            break;
+                    }
+                    row.append(col);
+                }
+                object.window.querySelector('.window__content').append(row);
+            }
         }
 
         // web
@@ -468,12 +515,47 @@ class WindowEvents extends Window {
         super(areaNumber);
         this.name = "События";
         this.title.innerHTML = this.name;
+
+        for (let i = 0; i < 8; i++) {
+            let col = document.createElement("p");
+            col.classList.add("legend__item__event");
+            switch (i) {
+                case 0:
+                    col.innerHTML = "Тип события";
+                    break;
+                case 1:
+                    col.innerHTML = "Время соб.";
+                    break;
+                case 2:
+                    col.innerHTML = "I1 макс,мин";
+                    break;
+                case 3:
+                    col.innerHTML = "I2 макс,мин";
+                    break;
+                case 4:
+                    col.innerHTML = "I3 макс,мин";
+                    break;
+                case 5:
+                    col.innerHTML = "U1 макс,мин";
+                    break;
+                case 6:
+                    col.innerHTML = "U2 макс,мин";
+                    break;
+                case 7:
+                    col.innerHTML = "U3 макс,мин";
+                    break;
+            }
+            this.legend.append(col);
+        }
+    }
+    fill(jsonAppl, id) {
+
     }
 }
 
 
-let defaultWindow = new Window(0);
-let defaultWindow3 = new Window(2);
+// let defaultWindow = new Window(0);
+// let defaultWindow3 = new Window(2);
 let itemWindow = new WindowItems(1);
 // let eventsWindow = new WindowEvents(2);
 
