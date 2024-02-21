@@ -430,24 +430,51 @@ class WindowItems extends Window {
 
     fill() {
         // local
-        requestHandler(this, jsonAppl, this.eventsObject);
+        // requestHandler(this, jsonAppl, this.eventsObject);
 
-        function requestHandler(object, jsonsmth, eventsObject) {
-            let appliances = jsonsmth;
-            let itemsCount = appliances.items.length;
+        // function requestHandler(object, jsonsmth, eventsObject) {
+        //     let appliances = jsonsmth;
+        //     let itemsCount = appliances.items.length;
 
-            pageCreator(object, itemsCount, appliances, eventsObject);
+        //     pageCreator(object, itemsCount, appliances, eventsObject);
 
-            let rows = object.content.querySelectorAll(".row");
+        //     let rows = object.content.querySelectorAll(".row");
 
-            for (let i = 0; i < itemsCount; i++) {
-                console.log(rows[i].querySelector('.id'));
-                rows[i].querySelector('.id').innerHTML = appliances.items[i].id;
-                rows[i].querySelector('.name').innerHTML = appliances.items[i].name;
-                rows[i].querySelector('.type').innerHTML = appliances.items[i].type;
-                rows[i].querySelector('.location').innerHTML = appliances.items[i].location;
-            }
+        //     for (let i = 0; i < itemsCount; i++) {
+        //         rows[i].querySelector('.id').innerHTML = appliances.items[i].id;
+        //         rows[i].querySelector('.name').innerHTML = appliances.items[i].name;
+        //         rows[i].querySelector('.type').innerHTML = appliances.items[i].type;
+        //         rows[i].querySelector('.location').innerHTML = appliances.items[i].location;
+        //     }
+        // }
+
+        requestHandler(this, "appliances.json", this.eventsObject);
+
+        function requestHandler(object, way, eventsObject) {
+            let requestURL = way;
+            let xhr = new XMLHttpRequest();
+
+            xhr.open("GET", requestURL);
+            xhr.responseType = 'json';
+            xhr.onerror = function(){console.log("oops")};
+            xhr.send();
+
+            xhr.addEventListener("load", function() {
+                let appliances = request.response;
+                let itemsCount = appliances.items.length;
+    
+                pageCreator(object, itemsCount, appliances, eventsObject);
+                let rows = object.content.querySelectorAll(".row");
+                for (let i = 0; i < itemsCount; i++) {
+                            rows[i].querySelector('.id').innerHTML = appliances.items[i].id;
+                            rows[i].querySelector('.name').innerHTML = appliances.items[i].name;
+                            rows[i].querySelector('.type').innerHTML = appliances.items[i].type;
+                            rows[i].querySelector('.location').innerHTML = appliances.items[i].location;
+                        }
+            });
         }
+
+
 
         function pageCreator(object, itemsCount, appliances, eventsObject) {
             for (let i = 0; i < itemsCount; i++) {
@@ -486,34 +513,6 @@ class WindowItems extends Window {
             }
         }
 
-        // web
-
-        // requestHandler(this, "appliances.json", this.eventsObject);
-
-        // function requestHandler(object, way, eventsObject) {
-        //     let requestURL = way;
-        //     let xhr = new XMLHttpRequest();
-
-        //     xhr.open("GET", requestURL);
-        //     xhr.responseType = 'json';
-        //     xhr.onerror = function(){console.log("oops")};
-        //     xhr.send();
-        // }
-
-        // xhr.addEventListener("load", function() {
-        //     let appliances = request.response;
-        //     let itemsValue = appliances.items.length;
-        //     let rowsPerPage = Math.floor(object.window.querySelector('.window__content').offsetHeight / 50);
-
-        //     pageCreator(object, itemsValue, rowsPerPage, appliances, eventsObject);
-        //     let rows = object.window.querySelectorAll('.row');
-        //     for (let k = 0; k < itemsValue; k++) {
-        //         rows[k].querySelector('.id').innerHTML = appliances.items[k].id;
-        //         rows[k].querySelector('.name').innerHTML = appliances.items[k].name;
-        //         rows[k].querySelector('.type').innerHTML = appliances.items[k].type;
-        //         rows[k].querySelector('.location').innerHTML = appliances.items[k].location;
-        //     }
-        // });
     }
 }
 
