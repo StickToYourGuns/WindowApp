@@ -400,7 +400,6 @@ class WindowItems extends Window {
         this.title.innerHTML = this.name;
         this.eventsObject = new WindowEvents(areaNumber);
         this.window.classList.add("items");
-        console.log(this.content);
 
         for (let i = 0; i < 4; i++) {
             let col = document.createElement("p");
@@ -460,7 +459,7 @@ class WindowItems extends Window {
             xhr.send();
 
             xhr.addEventListener("load", function() {
-                let appliances = request.response;
+                let appliances = xhr.response;
                 let itemsCount = appliances.items.length;
     
                 pageCreator(object, itemsCount, appliances, eventsObject);
@@ -556,7 +555,6 @@ class WindowEvents extends Window {
         }
     }
     fill(jsonObj, id) {
-        console.log(jsonObj)
         this.content.innerHTML = null;
         let itemsEventCount = jsonObj.items[id].events.length;
         for (let i = 0; i < itemsEventCount; i++) {
