@@ -119,7 +119,7 @@ body {
 }
 
 .window__content {
-    overflow: hidden auto;
+    overflow: auto auto;
     display: flex;
     flex-direction: column;
     width: 100%;
